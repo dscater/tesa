@@ -90,6 +90,21 @@ export default new Router({
                 .default,
             props: true,
         },
+        {
+            path: "/salida_materials/show/:id",
+            name: "salida_materials.show",
+            component: require("./components/modulos/salida_materials/show.vue")
+                .default,
+            props: true,
+        },
+
+        // fabricacion
+        {
+            path: "/fabricacion",
+            name: "fabricacion.index",
+            component: require("./components/modulos/fabricacion/index.vue")
+                .default,
+        },
 
         // categorias
         {
@@ -179,7 +194,22 @@ export default new Router({
             props: true,
         },
 
+        // Analisis fabricacion
+        {
+            path: "/analisis_fabricacion",
+            name: "analisis_fabricacion.index",
+            component:
+                require("./components/modulos/analisis_fabricacion/index.vue")
+                    .default,
+        },
         // Analisis inventarios
+        {
+            path: "/analisis_inventarios_materiales",
+            name: "analisis_inventarios_materiales.index",
+            component:
+                require("./components/modulos/analisis_inventarios_materiales/index.vue")
+                    .default,
+        },
         {
             path: "/analisis_inventarios",
             name: "analisis_inventarios.index",
@@ -230,6 +260,14 @@ export default new Router({
             props: true,
         },
         {
+            path: "/reportes/kardex_materials",
+            name: "reportes.kardex_materials",
+            component:
+                require("./components/modulos/reportes/kardex_materials.vue")
+                    .default,
+            props: true,
+        },
+        {
             path: "/reportes/ventas",
             name: "reportes.ventas",
             component: require("./components/modulos/reportes/ventas.vue")
@@ -241,6 +279,14 @@ export default new Router({
             name: "reportes.stock_productos",
             component:
                 require("./components/modulos/reportes/stock_productos.vue")
+                    .default,
+            props: true,
+        },
+        {
+            path: "/reportes/stock_materials",
+            name: "reportes.stock_materials",
+            component:
+                require("./components/modulos/reportes/stock_materials.vue")
                     .default,
             props: true,
         },

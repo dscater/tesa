@@ -98,16 +98,19 @@ class UserController extends Controller
             'salida_productos.create',
             'salida_productos.edit',
             'salida_productos.destroy',
-            
+
             'ingreso_materials.index',
             'ingreso_materials.create',
             'ingreso_materials.edit',
             'ingreso_materials.destroy',
-            
+
             'salida_materials.index',
             'salida_materials.create',
             'salida_materials.edit',
             'salida_materials.destroy',
+
+            'fabricacion.index',
+            'fabricacion.terminado',
 
             'clientes.index',
             'clientes.create',
@@ -123,14 +126,18 @@ class UserController extends Controller
             'configuracion.edit',
 
             "analisis_inventarios",
+            "analisis_fabricacion",
+            "analisis_inventarios_materiales",
             "analisis_proveedores",
             "analisis_ventas",
             "analisis_clientes",
 
             'reportes.usuarios',
             'reportes.kardex',
+            'reportes.kardex_materials',
             'reportes.ventas',
             'reportes.stock_productos',
+            'reportes.stock_materials',
             'reportes.historial_acciones',
         ],
         'GERENCIA' => [
@@ -154,6 +161,11 @@ class UserController extends Controller
             'productos.create',
             'productos.edit',
             'productos.destroy',
+
+            'materials.index',
+            'materials.create',
+            'materials.edit',
+            'materials.destroy',
 
             'categorias.index',
             'categorias.create',
@@ -180,6 +192,19 @@ class UserController extends Controller
             'salida_productos.edit',
             'salida_productos.destroy',
 
+            'ingreso_materials.index',
+            'ingreso_materials.create',
+            'ingreso_materials.edit',
+            'ingreso_materials.destroy',
+
+            'salida_materials.index',
+            'salida_materials.create',
+            'salida_materials.edit',
+            'salida_materials.destroy',
+
+            'fabricacion.index',
+            'fabricacion.terminado',
+
             'clientes.index',
             'clientes.create',
             'clientes.edit',
@@ -191,13 +216,17 @@ class UserController extends Controller
             'ventas.destroy',
 
             "analisis_inventarios",
+            "analisis_fabricacion",
+            "analisis_inventarios_materiales",
             "analisis_proveedores",
             "analisis_ventas",
             "analisis_clientes",
 
             'reportes.kardex',
+            'reportes.kardex_materials',
             'reportes.ventas',
             'reportes.stock_productos',
+            'reportes.stock_materials',
             'reportes.historial_acciones',
         ],
         'VENDEDOR' => [

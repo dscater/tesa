@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\HistorialAccion;
+use App\Models\IngresoProducto;
+use App\Models\KardexProducto;
 use App\Models\Material;
 use App\Models\MovimientoMaterial;
 use App\Models\SalidaDetalle;
@@ -34,6 +36,27 @@ class SalidaMaterialController extends Controller
     {
         $salida_materials = SalidaMaterial::with(["producto", "salida_detalles.material"])->orderBy("nro", "desc")->get();
         return response()->JSON(['salida_materials' => $salida_materials, 'total' => count($salida_materials)], 200);
+    }
+
+    public function paginado(Request $request)
+    {
+        $estado = $request->estado;
+        $codigo = $request->codigo;
+
+        $salida_materials = SalidaMaterial::with(["producto", "salida_detalles.material"]);
+
+        $salida_materials->where("codigo", "LIKE", "%$codigo%");
+        if ($estado != 'TODOS') {
+            $salida_materials->where("estado", $estado);
+        }
+
+        $salida_materials->orderBy("nro", "desc");
+        $per_page = 12;
+        $salida_materials = $salida_materials->paginate($per_page);
+        return response()->JSON([
+            'salida_materials' => $salida_materials,
+            'per_page' => $per_page,
+        ], 200);
     }
 
     public function store(Request $request)
@@ -87,6 +110,54 @@ class SalidaMaterialController extends Controller
                 'sw' => true,
                 'salida_material' => $nueva_salida_material,
                 'msj' => 'El registro se realizó de forma correcta',
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->JSON([
+                'sw' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function terminado(SalidaMaterial $salida_material)
+    {
+        DB::beginTransaction();
+        try {
+            $datos_original = HistorialAccion::getDetalleRegistro($salida_material, "salida_materials");
+            $salida_material->update([
+                "estado" => "TERMINADO"
+            ]);
+
+            $datos_nuevo = HistorialAccion::getDetalleRegistro($salida_material, "salida_materials");
+            HistorialAccion::create([
+                'user_id' => Auth::user()->id,
+                'accion' => 'MODIFICACIÓN',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' MODIFICÓ UNA SALIDA DE MATERIAL',
+                'datos_original' => $datos_original,
+                'datos_nuevo' => $datos_nuevo,
+                'modulo' => 'SALIDA DE MATERIALES',
+                'fecha' => date('Y-m-d'),
+                'hora' => date('H:i:s')
+            ]);
+
+            // ACTUALIZAR STOCK PRODUCTO
+            $producto = $salida_material->producto;
+            // registrar kardex
+            $nuevo_ingreso_producto = IngresoProducto::create([
+                "producto_id" => $producto->id,
+                "precio_compra" => $producto->precio,
+                "cantidad" => $salida_material->cantidad,
+                "fecha_fabricacion" => date("Y-m-d"),
+                "descripcion" => "INGRESO POR FABRICACIÓN",
+                "fecha_registro" => date("Y-m-d"),
+            ]);
+            KardexProducto::registroIngreso("INGRESO", $nuevo_ingreso_producto->id, $nuevo_ingreso_producto->producto, $nuevo_ingreso_producto->cantidad, $nuevo_ingreso_producto->producto->precio, $nuevo_ingreso_producto->descripcion);
+            DB::commit();
+            return response()->JSON([
+                'sw' => true,
+                'salida_material' => $salida_material,
+                'msj' => 'El registro se actualizó de forma correcta'
             ], 200);
         } catch (\Exception $e) {
             DB::rollBack();

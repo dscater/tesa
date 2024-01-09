@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Almacen;
 use App\Models\DetalleOrden;
 use App\Models\HistorialAccion;
 use App\Models\KardexProducto;
+use App\Models\Material;
+use App\Models\MovimientoMaterial;
 use App\Models\Producto;
 use App\Models\User;
 use App\Models\Venta;
@@ -29,8 +30,13 @@ class ReporteController extends Controller
 
         $pdf = PDF::loadView('reportes.usuarios', compact('usuarios'))->setPaper('legal', 'landscape');
 
-        // ENUMERAR LAS PÁGINAS
-        $pdf->setOption('footer-right', '[page]');
+        // ENUMERAR LAS PÁGINAS USANDO CANVAS
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
 
         return $pdf->download('Usuarios.pdf');
     }
@@ -94,10 +100,82 @@ class ReporteController extends Controller
 
         $pdf = PDF::loadView('reportes.kardex', compact('productos', 'array_kardex', 'array_saldo_anterior'))->setPaper('letter', 'portrait');
 
-        // ENUMERAR LAS PÁGINAS
-        $pdf->setOption('footer-right', '[page]');
+        // ENUMERAR LAS PÁGINAS USANDO CANVAS
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
 
         return $pdf->stream('kardex.pdf');
+    }
+    public function kardex_materials(Request $request)
+    {
+        $filtro = $request->filtro;
+        $material_id = $request->material_id;
+        $fecha_ini = $request->fecha_ini;
+        $fecha_fin = $request->fecha_fin;
+
+        if ($request->filtro == 'Material') {
+            $request->validate([
+                'material_id' => 'required',
+            ]);
+        }
+
+        if ($request->filtro == 'Rango de fechas') {
+            $request->validate([
+                'fecha_ini' => 'required|date',
+                'fecha_fin' => 'required|date',
+            ]);
+        }
+
+        $materials = Material::all();
+        if ($filtro != 'todos') {
+            if ($filtro == 'Material') {
+                $materials = Material::where("id", $material_id)->get();
+            }
+        }
+
+        $array_kardex = [];
+        $array_saldo_anterior = [];
+        foreach ($materials as $registro) {
+            $kardex = MovimientoMaterial::where('material_id', $registro->id)->get();
+            $array_saldo_anterior[$registro->id] = [
+                'sw' => false,
+                'saldo_anterior' => []
+            ];
+            if ($filtro == 'Rango de fechas') {
+                $kardex = MovimientoMaterial::where('material_id', $registro->id)
+                    ->whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
+                // buscar saldo anterior si existe
+                $saldo_anterior = MovimientoMaterial::where('material_id', $registro->id)
+                    ->where('fecha', '<', $fecha_ini)
+                    ->orderBy('created_at', 'asc')->get()->last();
+                if ($saldo_anterior) {
+                    $cantidad_saldo = $saldo_anterior->cantidad_saldo;
+                    $array_saldo_anterior[$registro->id] = [
+                        'sw' => true,
+                        'saldo_anterior' => [
+                            'cantidad_saldo' => $cantidad_saldo,
+                        ]
+                    ];
+                }
+            }
+            $array_kardex[$registro->id] = $kardex;
+        }
+
+        $pdf = PDF::loadView('reportes.kardex_materials', compact('materials', 'array_kardex', 'array_saldo_anterior'))->setPaper('letter', 'portrait');
+
+        // ENUMERAR LAS PÁGINAS USANDO CANVAS
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
+
+        return $pdf->stream('kardex_materials.pdf');
     }
 
     public function ventas(Request $request)
@@ -133,8 +211,13 @@ class ReporteController extends Controller
         }
         $pdf = PDF::loadView('reportes.ventas', compact('ventas'))->setPaper('legal', 'portrait');
 
-        // ENUMERAR LAS PÁGINAS
-        $pdf->setOption('footer-right', '[page]');
+        // ENUMERAR LAS PÁGINAS USANDO CANVAS
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
 
         return $pdf->download('ventas.pdf');
     }
@@ -156,9 +239,41 @@ class ReporteController extends Controller
 
         $pdf = PDF::loadView('reportes.stock_productos', compact('registros'))->setPaper('legal', 'portrait');
 
-        // ENUMERAR LAS PÁGINAS
-        $pdf->setOption('footer-right', '[page]');
+        // ENUMERAR LAS PÁGINAS USANDO CANVAS
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
         return $pdf->download('stock_productos.pdf');
+    }
+
+    public function stock_materials(Request $request)
+    {
+        $filtro =  $request->filtro;
+        $material =  $request->material;
+
+        if ($filtro != 'TODOS') {
+            $request->validate(['material' => 'required']);
+        }
+
+        $registros = Material::orderBy("materials.nombre")->get();
+        if ($filtro != 'TODOS') {
+            $registros = Material::where("id", $material)->orderBy("materials.nombre")->get();
+        }
+
+
+        $pdf = PDF::loadView('reportes.stock_materials', compact('registros'))->setPaper('legal', 'portrait');
+
+        // ENUMERAR LAS PÁGINAS USANDO CANVAS
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
+        return $pdf->download('stock_materials.pdf');
     }
 
     public function historial_accion(Request $request)
@@ -171,8 +286,13 @@ class ReporteController extends Controller
 
         $pdf = PDF::loadView('reportes.historial_accion', compact('historial_accions'))->setPaper('legal', 'portrait');
 
-        // ENUMERAR LAS PÁGINAS
-        $pdf->setOption('footer-right', '[page]');
+        // ENUMERAR LAS PÁGINAS USANDO CANVAS
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
         return $pdf->download('historial_accions.pdf');
     }
 

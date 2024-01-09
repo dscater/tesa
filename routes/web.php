@@ -20,6 +20,17 @@ use App\Http\Controllers\TipoSalidaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+// VACIAR CACHE
+Route::get('/cache_clear', function () {
+    Artisan::call("route:clear");
+    Artisan::call("route:cache");
+    Artisan::call("view:clear");
+    Artisan::call("config:cache");
+    Artisan::call("optimize");
+
+    return 'Cache borrada correctamente<br/><a href="' . url("/") . '">Volver al inicio<a>';
+});
+
 // LOGIN
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
@@ -112,14 +123,22 @@ Route::middleware(['auth'])->group(function () {
         ]);
 
         // salida_materials
+        Route::put("salida_materials/terminado/{salida_material}", [SalidaMaterialController::class, 'terminado']);
+        Route::get("salida_materials/paginado", [SalidaMaterialController::class, 'paginado']);
         Route::resource('salida_materials', SalidaMaterialController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);
 
         // Analisis BI
+        Route::get("analisis_bi/p_fabricacion1", [AnalisisBiController::class, 'p_fabricacion1']);
+
         Route::get("analisis_bi/stock_productos1", [AnalisisBiController::class, 'stock_productos1']);
         Route::get("analisis_bi/stock_productos2", [AnalisisBiController::class, 'stock_productos2']);
         Route::get("analisis_bi/stock_productos3", [AnalisisBiController::class, 'stock_productos3']);
+
+        Route::get("analisis_bi/stock_materials1", [AnalisisBiController::class, 'stock_materials1']);
+        Route::get("analisis_bi/stock_materials2", [AnalisisBiController::class, 'stock_materials2']);
+        Route::get("analisis_bi/stock_materials3", [AnalisisBiController::class, 'stock_materials3']);
 
         Route::get("analisis_bi/proveedors1", [AnalisisBiController::class, 'proveedors1']);
         Route::get("analisis_bi/proveedors2", [AnalisisBiController::class, 'proveedors2']);
@@ -142,8 +161,10 @@ Route::middleware(['auth'])->group(function () {
         // REPORTES
         Route::post('reportes/usuarios', [ReporteController::class, 'usuarios']);
         Route::post('reportes/kardex', [ReporteController::class, 'kardex']);
+        Route::post('reportes/kardex_materials', [ReporteController::class, 'kardex_materials']);
         Route::post('reportes/ventas', [ReporteController::class, 'ventas']);
         Route::post('reportes/stock_productos', [ReporteController::class, 'stock_productos']);
+        Route::post('reportes/stock_materials', [ReporteController::class, 'stock_materials']);
         Route::post('reportes/historial_accion', [ReporteController::class, 'historial_accion']);
         Route::post('reportes/grafico_ingresos', [ReporteController::class, 'grafico_ingresos']);
         Route::post('reportes/grafico_orden', [ReporteController::class, 'grafico_orden']);

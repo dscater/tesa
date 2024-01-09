@@ -103,6 +103,18 @@
                     </li>
                     <li
                         class="nav-item"
+                        v-if="permisos.includes('fabricacion.index')"
+                    >
+                        <router-link
+                            :to="{ name: 'fabricacion.index' }"
+                            class="nav-link"
+                        >
+                            <i class="nav-icon fas fa-tags"></i>
+                            <p>Fabricación</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
                         v-if="permisos.includes('ingreso_materials.index')"
                     >
                         <router-link
@@ -247,6 +259,18 @@
                     </li>
                     <li
                         class="nav-item"
+                        v-if="permisos.includes('reportes.stock_materials')"
+                    >
+                        <router-link
+                            :to="{ name: 'reportes.stock_materials' }"
+                            class="nav-link"
+                        >
+                            <i class="fas fa-file-pdf nav-icon"></i>
+                            <p>Stock de materiales</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
                         v-if="permisos.includes('reportes.stock_productos')"
                     >
                         <router-link
@@ -255,6 +279,18 @@
                         >
                             <i class="fas fa-file-pdf nav-icon"></i>
                             <p>Stock de productos</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
+                        v-if="permisos.includes('reportes.kardex_materials')"
+                    >
+                        <router-link
+                            :to="{ name: 'reportes.kardex_materials' }"
+                            class="nav-link"
+                        >
+                            <i class="fas fa-file-pdf nav-icon"></i>
+                            <p>Kardex de materiales</p>
                         </router-link>
                     </li>
                     <li
@@ -306,6 +342,38 @@
                     </li>
                     <li
                         class="nav-item"
+                        v-if="
+                            permisos.includes('analisis_fabricacion')
+                        "
+                    >
+                        <router-link
+                            :to="{
+                                name: 'analisis_fabricacion.index',
+                            }"
+                            class="nav-link"
+                        >
+                            <i class="nav-icon fas fa-chart-pie"></i>
+                            <p>% Fabricación</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
+                        v-if="
+                            permisos.includes('analisis_inventarios_materiales')
+                        "
+                    >
+                        <router-link
+                            :to="{
+                                name: 'analisis_inventarios_materiales.index',
+                            }"
+                            class="nav-link"
+                        >
+                            <i class="nav-icon fas fa-chart-pie"></i>
+                            <p>Inventario de Materiales</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
                         v-if="permisos.includes('analisis_inventarios')"
                     >
                         <router-link
@@ -313,7 +381,7 @@
                             class="nav-link"
                         >
                             <i class="nav-icon fas fa-chart-pie"></i>
-                            <p>Inventario</p>
+                            <p>Inventario de Productos</p>
                         </router-link>
                     </li>
                     <li

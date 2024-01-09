@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 09-01-2024 a las 18:06:21
+-- Tiempo de generación: 09-01-2024 a las 19:51:22
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 7.4.19
 
@@ -153,7 +153,8 @@ INSERT INTO `fecha_stocks` (`id`, `producto_id`, `fecha`, `stock`, `created_at`,
 (1, 1, '2023-04-27', 93, '2023-04-27 18:59:01', '2023-04-27 19:00:50'),
 (2, 7, '2023-04-28', 86, '2023-04-28 15:42:04', '2023-04-28 19:53:34'),
 (3, 2, '2023-04-28', 99, '2023-04-28 19:53:34', '2023-04-28 19:53:34'),
-(4, 3, '2023-04-28', 69, '2023-04-28 21:11:48', '2023-04-28 21:11:48');
+(4, 3, '2023-04-28', 69, '2023-04-28 21:11:48', '2023-04-28 21:11:48'),
+(6, 1, '2024-01-09', 96, '2024-01-09 18:50:48', '2024-01-09 18:50:48');
 
 -- --------------------------------------------------------
 
@@ -315,7 +316,9 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (109, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA SALIDA DE MATERIAL', 'cantidad: 3<br/>codigo: PROD.1<br/>created_at: 2024-01-09 13:57:07<br/>estado: EN PRODUCCIÓN<br/>fecha_registro: 2024-01-09<br/>fecha_salida: 2024-01-09<br/>id: 1<br/>nro: 1<br/>producto_id: 1<br/>updated_at: 2024-01-09 13:57:07<br/>', 'cantidad: 3<br/>codigo: PROD.1<br/>created_at: 2024-01-09 13:57:07<br/>estado: EN PRODUCCIÓN<br/>fecha_registro: 2024-01-09<br/>fecha_salida: 2024-01-09<br/>id: 1<br/>nro: 1<br/>producto_id: 1<br/>updated_at: 2024-01-09 13:57:07<br/>', 'SALIDA DE MATERIALES', '2024-01-09', '14:05:18', '2024-01-09 18:05:18', '2024-01-09 18:05:18'),
 (110, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA SALIDA DE MATERIAL', 'cantidad: 3<br/>codigo: PROD.1<br/>created_at: 2024-01-09 13:57:07<br/>estado: EN PRODUCCIÓN<br/>fecha_registro: 2024-01-09<br/>fecha_salida: 2024-01-09<br/>id: 1<br/>nro: 1<br/>producto_id: 1<br/>updated_at: 2024-01-09 13:57:07<br/>', 'cantidad: 3<br/>codigo: PROD.1<br/>created_at: 2024-01-09 13:57:07<br/>estado: EN PRODUCCIÓN<br/>fecha_registro: 2024-01-09<br/>fecha_salida: 2024-01-09<br/>id: 1<br/>nro: 1<br/>producto_id: 1<br/>updated_at: 2024-01-09 13:57:07<br/>', 'SALIDA DE MATERIALES', '2024-01-09', '14:05:36', '2024-01-09 18:05:36', '2024-01-09 18:05:36'),
 (111, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UNA SALIDA DE MATERIAL', 'cantidad: 3<br/>codigo: PROD.1<br/>created_at: 2024-01-09 13:57:07<br/>estado: EN PRODUCCIÓN<br/>fecha_registro: 2024-01-09<br/>fecha_salida: 2024-01-09<br/>id: 1<br/>nro: 1<br/>producto_id: 1<br/>updated_at: 2024-01-09 13:57:07<br/>', NULL, 'SALIDA DE MATERIALES', '2024-01-09', '14:05:45', '2024-01-09 18:05:45', '2024-01-09 18:05:45'),
-(112, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA SALIDA DE MATERIAL', 'cantidad: 3<br/>codigo: PROD.1<br/>created_at: 2024-01-09 14:06:01<br/>estado: <br/>fecha_registro: 2024-01-09<br/>fecha_salida: 2024-01-09<br/>id: 2<br/>nro: 1<br/>producto_id: 1<br/>updated_at: 2024-01-09 14:06:01<br/>', NULL, 'SALIDA DE MATERIALES', '2024-01-09', '14:06:01', '2024-01-09 18:06:01', '2024-01-09 18:06:01');
+(112, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA SALIDA DE MATERIAL', 'cantidad: 3<br/>codigo: PROD.1<br/>created_at: 2024-01-09 14:06:01<br/>estado: <br/>fecha_registro: 2024-01-09<br/>fecha_salida: 2024-01-09<br/>id: 2<br/>nro: 1<br/>producto_id: 1<br/>updated_at: 2024-01-09 14:06:01<br/>', NULL, 'SALIDA DE MATERIALES', '2024-01-09', '14:06:01', '2024-01-09 18:06:01', '2024-01-09 18:06:01'),
+(113, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA SALIDA DE MATERIAL', 'cantidad: 3<br/>codigo: PROD.1<br/>created_at: 2024-01-09 14:06:01<br/>estado: EN PRODUCCIÓN<br/>fecha_registro: 2024-01-09<br/>fecha_salida: 2024-01-09<br/>id: 2<br/>nro: 1<br/>producto_id: 1<br/>updated_at: 2024-01-09 14:06:01<br/>', 'cantidad: 3<br/>codigo: PROD.1<br/>created_at: 2024-01-09 14:06:01<br/>estado: TERMINADO<br/>fecha_registro: 2024-01-09<br/>fecha_salida: 2024-01-09<br/>id: 2<br/>nro: 1<br/>producto_id: 1<br/>updated_at: 2024-01-09 14:44:31<br/>', 'SALIDA DE MATERIALES', '2024-01-09', '14:44:31', '2024-01-09 18:44:31', '2024-01-09 18:44:31'),
+(115, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA SALIDA DE MATERIAL', 'cantidad: 3<br/>codigo: PROD.1<br/>created_at: 2024-01-09 14:06:01<br/>estado: EN PRODUCCIÓN<br/>fecha_registro: 2024-01-09<br/>fecha_salida: 2024-01-09<br/>id: 2<br/>nro: 1<br/>producto_id: 1<br/>updated_at: 2024-01-09 14:44:31<br/>', 'cantidad: 3<br/>codigo: PROD.1<br/>created_at: 2024-01-09 14:06:01<br/>estado: TERMINADO<br/>fecha_registro: 2024-01-09<br/>fecha_salida: 2024-01-09<br/>id: 2<br/>nro: 1<br/>producto_id: 1<br/>updated_at: 2024-01-09 14:50:48<br/>', 'SALIDA DE MATERIALES', '2024-01-09', '14:50:48', '2024-01-09 18:50:48', '2024-01-09 18:50:48');
 
 -- --------------------------------------------------------
 
@@ -353,13 +356,12 @@ INSERT INTO `ingreso_materials` (`id`, `material_id`, `proveedor_id`, `descripci
 CREATE TABLE `ingreso_productos` (
   `id` bigint UNSIGNED NOT NULL,
   `producto_id` bigint UNSIGNED NOT NULL,
-  `proveedor_id` bigint UNSIGNED NOT NULL,
+  `proveedor_id` bigint UNSIGNED DEFAULT NULL,
   `precio_compra` decimal(8,2) NOT NULL,
   `cantidad` double NOT NULL,
-  `lote` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lote` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fecha_fabricacion` date NOT NULL,
-  `fecha_caducidad` date NOT NULL,
-  `tipo_ingreso_id` bigint UNSIGNED NOT NULL,
+  `tipo_ingreso_id` bigint UNSIGNED DEFAULT NULL,
   `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `fecha_registro` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -370,12 +372,13 @@ CREATE TABLE `ingreso_productos` (
 -- Volcado de datos para la tabla `ingreso_productos`
 --
 
-INSERT INTO `ingreso_productos` (`id`, `producto_id`, `proveedor_id`, `precio_compra`, `cantidad`, `lote`, `fecha_fabricacion`, `fecha_caducidad`, `tipo_ingreso_id`, `descripcion`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 20.00, 100, '1', '2023-02-02', '2025-02-02', 1, '', '2023-04-25', '2023-04-25 15:23:41', '2023-04-25 15:23:41'),
-(2, 2, 1, 30.00, 100, '2', '2023-04-25', '2024-04-25', 2, '', '2023-04-25', '2023-04-25 15:25:58', '2023-04-25 15:25:58'),
-(3, 3, 1, 100.00, 70, '3', '2023-03-03', '2026-03-03', 1, '', '2023-04-25', '2023-04-25 15:28:29', '2023-04-25 15:31:20'),
-(4, 1, 1, 20.00, 10, '10', '2023-04-27', '2025-04-27', 1, '', '2023-04-27', '2023-04-27 18:59:01', '2023-04-27 18:59:01'),
-(5, 7, 2, 11.00, 90, '322323', '2023-01-01', '2025-01-01', 1, '', '2023-04-28', '2023-04-28 15:42:04', '2023-04-28 15:42:04');
+INSERT INTO `ingreso_productos` (`id`, `producto_id`, `proveedor_id`, `precio_compra`, `cantidad`, `lote`, `fecha_fabricacion`, `tipo_ingreso_id`, `descripcion`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 20.00, 100, '1', '2023-02-02', 1, '', '2023-04-25', '2023-04-25 15:23:41', '2023-04-25 15:23:41'),
+(2, 2, 1, 30.00, 100, '2', '2023-04-25', 2, '', '2023-04-25', '2023-04-25 15:25:58', '2023-04-25 15:25:58'),
+(3, 3, 1, 100.00, 70, '3', '2023-03-03', 1, '', '2023-04-25', '2023-04-25 15:28:29', '2023-04-25 15:31:20'),
+(4, 1, 1, 20.00, 10, '10', '2023-04-27', 1, '', '2023-04-27', '2023-04-27 18:59:01', '2023-04-27 18:59:01'),
+(5, 7, 2, 11.00, 90, '322323', '2023-01-01', 1, '', '2023-04-28', '2023-04-28 15:42:04', '2023-04-28 15:42:04'),
+(8, 1, NULL, 20.00, 3, NULL, '2024-01-09', NULL, 'INGRESO POR FABRICACIÓN', '2024-01-09', '2024-01-09 18:50:48', '2024-01-09 18:50:48');
 
 -- --------------------------------------------------------
 
@@ -420,7 +423,8 @@ INSERT INTO `kardex_productos` (`id`, `lugar`, `tipo_registro`, `registro_id`, `
 (16, NULL, 'INGRESO', 5, 7, 'VALOR INICIAL', 12.00, 'INGRESO', 90, NULL, 90, 12.00, 1080.00, NULL, 1080.00, '2023-04-28', '2023-04-28 15:42:04', '2023-04-28 15:42:04'),
 (17, NULL, 'VENTA', 9, 7, 'VENTA DE PRODUCTO', 12.00, 'EGRESO', NULL, 4, 86, 12.00, NULL, 48.00, 1032.00, '2023-04-28', '2023-04-28 19:53:34', '2023-04-28 19:53:34'),
 (18, NULL, 'VENTA', 10, 2, 'VENTA DE PRODUCTO', 35.00, 'EGRESO', NULL, 1, 99, 35.00, NULL, 35.00, 3465.00, '2023-04-28', '2023-04-28 19:53:34', '2023-04-28 19:53:34'),
-(19, NULL, 'VENTA', 11, 3, 'VENTA DE PRODUCTO', 100.00, 'EGRESO', NULL, 1, 69, 100.00, NULL, 100.00, 6900.00, '2023-04-28', '2023-04-28 21:11:48', '2023-04-28 21:11:48');
+(19, NULL, 'VENTA', 11, 3, 'VENTA DE PRODUCTO', 100.00, 'EGRESO', NULL, 1, 69, 100.00, NULL, 100.00, 6900.00, '2023-04-28', '2023-04-28 21:11:48', '2023-04-28 21:11:48'),
+(21, NULL, 'INGRESO', 8, 1, 'INGRESO POR FABRICACIÓN', 20.00, 'INGRESO', 3, NULL, 96, 20.00, 60.00, NULL, 1920.00, '2024-01-09', '2024-01-09 18:50:48', '2024-01-09 18:50:48');
 
 -- --------------------------------------------------------
 
@@ -561,7 +565,7 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `codigo_almacen`, `codigo_producto`, `nombre`, `descripcion`, `precio`, `stock_min`, `stock_actual`, `imagen`, `categoria_id`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 'A001', 'P001', 'PRENDA #1', '', 20.00, 10, 93, '', 3, '2023-04-24', '2023-04-24 21:36:20', '2024-01-09 13:32:48'),
+(1, 'A001', 'P001', 'PRENDA #1', '', 20.00, 10, 96, '', 3, '2023-04-24', '2023-04-24 21:36:20', '2024-01-09 18:50:48'),
 (2, 'A001', 'P002', 'PRENDA #2', '', 35.00, 5, 99, '', 1, '2023-04-24', '2023-04-24 21:44:24', '2024-01-09 13:32:56'),
 (3, 'A001', 'P003', 'PRODUCTO 3', '', 100.00, 10, 69, NULL, 1, '2023-04-24', '2023-04-24 21:45:17', '2023-04-28 21:11:48'),
 (7, 'A00111', 'P004', 'PRODUCTO 4', '', 12.00, 12, 86, '1682696496_7.jpg', 1, '2023-04-24', '2023-04-24 21:47:54', '2023-04-28 19:53:34'),
@@ -644,7 +648,7 @@ CREATE TABLE `salida_materials` (
 --
 
 INSERT INTO `salida_materials` (`id`, `codigo`, `nro`, `producto_id`, `cantidad`, `fecha_salida`, `estado`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(2, 'PROD.1', 1, 1, 3.00, '2024-01-09', 'EN PRODUCCIÓN', '2024-01-09', '2024-01-09 18:06:01', '2024-01-09 18:06:01');
+(2, 'PROD.1', 1, 1, 3.00, '2024-01-09', 'TERMINADO', '2024-01-09', '2024-01-09 18:06:01', '2024-01-09 18:50:48');
 
 -- --------------------------------------------------------
 
@@ -967,7 +971,7 @@ ALTER TABLE `detalle_ventas`
 -- AUTO_INCREMENT de la tabla `fecha_stocks`
 --
 ALTER TABLE `fecha_stocks`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `fecha_stock_materials`
@@ -979,7 +983,7 @@ ALTER TABLE `fecha_stock_materials`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso_materials`
@@ -991,13 +995,13 @@ ALTER TABLE `ingreso_materials`
 -- AUTO_INCREMENT de la tabla `ingreso_productos`
 --
 ALTER TABLE `ingreso_productos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `kardex_productos`
 --
 ALTER TABLE `kardex_productos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `materials`

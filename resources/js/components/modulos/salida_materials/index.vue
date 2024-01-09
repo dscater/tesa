@@ -222,7 +222,27 @@
                                                     <div
                                                         class="row justify-content-between"
                                                     >
+                                                        <router-link
+                                                            :to="{
+                                                                name: 'salida_materials.show',
+                                                                params: {
+                                                                    id: row.item
+                                                                        .id,
+                                                                },
+                                                            }"
+                                                            class="btn btn-outline-primary btn-block rounded-pill"
+                                                            title="Ver registro"
+                                                        >
+                                                            <i
+                                                                class="fa fa-eye"
+                                                            ></i>
+                                                        </router-link>
                                                         <b-button
+                                                            v-if="
+                                                                row.item
+                                                                    .estado ==
+                                                                'EN PRODUCCIÓN'
+                                                            "
                                                             size="sm"
                                                             pill
                                                             variant="outline-warning"
@@ -239,6 +259,11 @@
                                                             ></i>
                                                         </b-button>
                                                         <b-button
+                                                            v-if="
+                                                                row.item
+                                                                    .estado ==
+                                                                'EN PRODUCCIÓN'
+                                                            "
                                                             size="sm"
                                                             pill
                                                             variant="outline-danger"
