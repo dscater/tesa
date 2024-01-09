@@ -10,7 +10,6 @@ use App\Models\IngresoProducto;
 use App\Models\KardexProducto;
 use App\Models\Producto;
 use App\Models\SalidaProducto;
-use App\Models\SucursalStock;
 use App\Models\TransferenciaProducto;
 use Exception;
 use Illuminate\Http\Request;
@@ -373,82 +372,6 @@ class ProductoController extends Controller
         }
     }
 
-    public function getStock(Request $request)
-    {
-        $lugar = $request->lugar;
-        $producto_id = $request->producto_id;
-
-        $producto = Producto::find($producto_id);
-        if ($lugar == 'SUCURSAL') {
-            $producto_stock = SucursalStock::where("producto_id", $producto_id)->get()->first();
-            if (!$producto_stock) {
-                $producto_stock = SucursalStock::create([
-                    "producto_id" => $producto_id,
-                    "stock_actual" => 0,
-                ]);
-            }
-        } else {
-            $producto_stock = Almacen::where("producto_id", $producto_id)->get()->first();
-            if (!$producto_stock) {
-                $producto_stock = Almacen::create([
-                    "producto_id" => $producto_id,
-                    "stock_actual" => 0,
-                ]);
-            }
-        }
-
-        return response()->JSON([
-            "producto" => $producto,
-            "stock_actual" => $producto_stock->stock_actual
-        ]);
-    }
-
-    public function productos_sucursal(Request $request)
-    {
-        $sw_busqueda = $request->sw_busqueda;
-        $productos = [];
-        if (isset($request->value)) {
-            $value = $request->value;
-            $productos = [];
-            if ($sw_busqueda == 'todos') {
-                $productos = SucursalStock::select("sucursal_stocks.*")
-                    ->with("producto.grupo")
-                    ->join("productos", "productos.id", "=", "sucursal_stocks.producto_id")
-                    ->join("grupos", "grupos.id", "=", "productos.grupo_id")
-                    ->where(function ($query) use ($value) {
-                        $query->where('productos.id', "%$value%")
-                            ->orWhere('productos.id', "LIKE", "%$value%")
-                            ->orWhere("productos.codigo", "LIKE", "%$value%")
-                            ->orWhere("productos.nombre", "LIKE", "%$value%")
-                            ->orWhere("productos.medida", "LIKE", "%$value%")
-                            ->orWhere("productos.precio", "LIKE", "%$value%")
-                            ->orWhere("productos.precio_mayor", "LIKE", "%$value%")
-                            ->orWhere("productos.fecha_registro", "LIKE", "%$value%")
-                            ->orWhere("grupos.nombre", "LIKE", "%$value%");
-                    })
-                    ->orderBy("grupos.nombre", "ASC")
-                    ->orderBy("productos.codigo", "ASC")
-                    ->orderBy("productos.medida", "ASC")
-                    ->get()->take(100);
-            } else {
-                $productos = SucursalStock::select("sucursal_stocks.*")
-                    ->with("producto.grupo")
-                    ->join("productos", "productos.id", "=", "sucursal_stocks.producto_id")
-                    ->join("grupos", "grupos.id", "=", "productos.grupo_id")
-                    ->where(function ($query) use ($value, $sw_busqueda) {
-                        $query->where('productos.' . $sw_busqueda, $value);
-                    })
-                    ->orderBy("grupos.nombre", "ASC")
-                    ->orderBy("productos.codigo", "ASC")
-                    ->orderBy("productos.medida", "ASC")
-                    ->get()->take(100);
-            }
-        } else {
-            $productos = SucursalStock::with("sucursal")->with("producto.grupo")->where("sucursal_id", $request->id)->get();
-        }
-        return response()->JSON($productos);
-    }
-
     public function valida_stock(Request $request)
     {
         $cantidad = $request->cantidad;
@@ -469,41 +392,5 @@ class ProductoController extends Controller
                 "msj" => "La cantidad que desea ingresar supera al stock disponible del producto.<br/> Stock actual: <b>" . $producto->stock_actual . " unidades</b>"
             ]
         );
-    }
-
-    public function verifica_ventas(Request $request)
-    {
-        $id = $request->id;
-        $lugar = $request->lugar;
-
-
-        $producto = Producto::find($id);
-        $ingresos = IngresoProducto::where("lugar", $lugar)
-            ->where("producto_id", $producto->id)
-            ->get();
-
-        $salidas = SalidaProducto::where("lugar", $lugar)
-            ->where("producto_id", $producto->id)
-            ->get();
-
-        $transferencia_origen = TransferenciaProducto::where("origen", $lugar)
-            ->where("producto_id", $producto->id)
-            ->get();
-
-        $transferencia_destino = TransferenciaProducto::where("origen", $lugar)
-            ->where("producto_id", $producto->id)
-            ->get();
-
-        if ($lugar == 'SUCURSAL') {
-            $existe = DetalleVenta::where("producto_id", $producto->id)->get();
-            if (count($existe) > 0 || count($transferencia_origen) > 0 || count($transferencia_destino) > 0 || count($ingresos) > 0 || count($salidas) > 0) {
-                return response()->JSON(true);
-            }
-        } else {
-            if (count($transferencia_origen) > 0 || count($transferencia_destino) > 0 || count($ingresos) > 0 || count($salidas) > 0) {
-                return response()->JSON(true);
-            }
-        }
-        return response()->JSON(false);
     }
 }

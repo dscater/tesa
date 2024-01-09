@@ -26,58 +26,14 @@
                             <div class="form-group col-md-6">
                                 <label
                                     :class="{
-                                        'text-danger': errors.codigo_almacen,
-                                    }"
-                                    >Código Almacén*</label
-                                >
-                                <el-input
-                                    placeholder="Código"
-                                    :class="{
-                                        'is-invalid': errors.codigo_almacen,
-                                    }"
-                                    v-model="producto.codigo_almacen"
-                                    clearable
-                                >
-                                </el-input>
-                                <span
-                                    class="error invalid-feedback"
-                                    v-if="errors.codigo_almacen"
-                                    v-text="errors.codigo_almacen[0]"
-                                ></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label
-                                    :class="{
-                                        'text-danger': errors.codigo_producto,
-                                    }"
-                                    >Código de Producto*</label
-                                >
-                                <el-input
-                                    placeholder="Código"
-                                    :class="{
-                                        'is-invalid': errors.codigo_producto,
-                                    }"
-                                    v-model="producto.codigo_producto"
-                                    clearable
-                                >
-                                </el-input>
-                                <span
-                                    class="error invalid-feedback"
-                                    v-if="errors.codigo_producto"
-                                    v-text="errors.codigo_producto[0]"
-                                ></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label
-                                    :class="{
                                         'text-danger': errors.nombre,
                                     }"
-                                    >Nombre Producto*</label
+                                    >Nombre Material*</label
                                 >
                                 <el-input
-                                    placeholder="Nombre Producto"
+                                    placeholder="Nombre Material"
                                     :class="{ 'is-invalid': errors.nombre }"
-                                    v-model="producto.nombre"
+                                    v-model="material.nombre"
                                     clearable
                                 >
                                 </el-input>
@@ -99,7 +55,7 @@
                                     :class="{
                                         'is-invalid': errors.descripcion,
                                     }"
-                                    v-model="producto.descripcion"
+                                    v-model="material.descripcion"
                                     clearable
                                 >
                                 </el-input>
@@ -107,52 +63,6 @@
                                     class="error invalid-feedback"
                                     v-if="errors.descripcion"
                                     v-text="errors.descripcion[0]"
-                                ></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label
-                                    :class="{
-                                        'text-danger': errors.precio,
-                                    }"
-                                    >Precio de venta*</label
-                                >
-                                <el-input
-                                    type="number"
-                                    step="0.01"
-                                    placeholder="Previo de venta"
-                                    :class="{ 'is-invalid': errors.precio }"
-                                    v-model="producto.precio"
-                                    clearable
-                                >
-                                </el-input>
-                                <span
-                                    class="error invalid-feedback"
-                                    v-if="errors.precio"
-                                    v-text="errors.precio[0]"
-                                ></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label
-                                    :class="{
-                                        'text-danger': errors.stock_min,
-                                    }"
-                                    >Stock mínimo*</label
-                                >
-                                <el-input
-                                    type="number"
-                                    step="0.01"
-                                    placeholder="Stock mínimo"
-                                    :class="{
-                                        'is-invalid': errors.stock_min,
-                                    }"
-                                    v-model="producto.stock_min"
-                                    clearable
-                                >
-                                </el-input>
-                                <span
-                                    class="error invalid-feedback"
-                                    v-if="errors.stock_min"
-                                    v-text="errors.stock_min[0]"
                                 ></span>
                             </div>
                             <div class="form-group col-md-6">
@@ -176,36 +86,6 @@
                                     class="error invalid-feedback"
                                     v-if="errors.imagen"
                                     v-text="errors.imagen[0]"
-                                ></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label
-                                    :class="{
-                                        'text-danger': errors.categoria_id,
-                                    }"
-                                    >Categoría*</label
-                                >
-                                <el-select
-                                    placeholder="Categoría"
-                                    class="w-100"
-                                    :class="{
-                                        'is-invalid': errors.categoria_id,
-                                    }"
-                                    v-model="producto.categoria_id"
-                                    clearable
-                                >
-                                    <el-option
-                                        v-for="item in listCategorias"
-                                        :key="item.id"
-                                        :value="item.id"
-                                        :label="item.nombre"
-                                    >
-                                    </el-option>
-                                </el-select>
-                                <span
-                                    class="error invalid-feedback"
-                                    v-if="errors.categoria_id"
-                                    v-text="errors.categoria_id[0]"
                                 ></span>
                             </div>
                         </div>
@@ -244,19 +124,13 @@ export default {
             type: String,
             default: "nuevo",
         },
-        producto: {
+        material: {
             type: Object,
             default: {
                 id: 0,
-                codigo_almacen: "",
-                codigo_producto: "",
                 nombre: "",
                 descripcion: "",
-                precio: "",
-                stock_min: "",
-                stock_actual: "",
                 imagen: null,
-                categoria_id: "",
             },
         },
     },
@@ -309,7 +183,7 @@ export default {
             this.enviando = true;
             try {
                 this.textoBtn = "Enviando...";
-                let url = "/admin/productos";
+                let url = "/admin/materials";
                 let config = {
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -317,44 +191,20 @@ export default {
                 };
                 let formdata = new FormData();
                 formdata.append(
-                    "codigo_almacen",
-                    this.producto.codigo_almacen
-                        ? this.producto.codigo_almacen
-                        : ""
-                );
-                formdata.append(
-                    "codigo_producto",
-                    this.producto.codigo_producto
-                        ? this.producto.codigo_producto
-                        : ""
-                );
-                formdata.append(
                     "nombre",
-                    this.producto.nombre ? this.producto.nombre : ""
+                    this.material.nombre ? this.material.nombre : ""
                 );
                 formdata.append(
                     "descripcion",
-                    this.producto.descripcion ? this.producto.descripcion : ""
-                );
-                formdata.append(
-                    "precio",
-                    this.producto.precio ? this.producto.precio : ""
-                );
-                formdata.append(
-                    "stock_min",
-                    this.producto.stock_min ? this.producto.stock_min : ""
+                    this.material.descripcion ? this.material.descripcion : ""
                 );
                 formdata.append(
                     "imagen",
-                    this.producto.imagen ? this.producto.imagen : ""
-                );
-                formdata.append(
-                    "categoria_id",
-                    this.producto.categoria_id ? this.producto.categoria_id : ""
+                    this.material.imagen ? this.material.imagen : ""
                 );
 
                 if (this.accion == "edit") {
-                    url = "/admin/productos/" + this.producto.id;
+                    url = "/admin/materials/" + this.material.id;
                     formdata.append("_method", "PUT");
                 }
                 axios
@@ -368,7 +218,7 @@ export default {
                                 showConfirmButton: false,
                                 timer: 1500,
                             });
-                            this.limpiaProducto();
+                            this.limpiaMaterial();
                             this.$emit("envioModal");
                             this.errors = [];
                             if (this.accion == "edit") {
@@ -426,17 +276,14 @@ export default {
             this.$emit("close");
         },
         cargaImagen(e) {
-            this.producto.imagen = e.target.files[0];
+            this.material.imagen = e.target.files[0];
         },
-        limpiaProducto() {
+        limpiaMaterial() {
             this.errors = [];
-            this.producto.codigo_almacen = "";
-            this.producto.codigo_producto = "";
-            this.producto.nombre = "";
-            this.producto.descripcion = "";
-            this.producto.precio = "";
-            this.producto.stock_min = "";
-            this.producto.categoria_id = "";
+            this.material.nombre = "";
+            this.material.descripcion = "";
+            this.material.stock = "";
+            this.material.imagen = "";
             this.$refs.input_file.value = null;
         },
     },

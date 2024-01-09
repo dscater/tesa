@@ -103,10 +103,10 @@
                     </li>
                     <li
                         class="nav-item"
-                        v-if="permisos.includes('ingreso_productos.index')"
+                        v-if="permisos.includes('ingreso_materials.index')"
                     >
                         <router-link
-                            :to="{ name: 'ingreso_productos.index' }"
+                            :to="{ name: 'ingreso_materials.index' }"
                             class="nav-link"
                         >
                             <i class="nav-icon fas fa-sign-in-alt"></i>
@@ -115,10 +115,10 @@
                     </li>
                     <li
                         class="nav-item"
-                        v-if="permisos.includes('ingreso_productos.index')"
+                        v-if="permisos.includes('salida_materials.index')"
                     >
                         <router-link
-                            :to="{ name: 'ingreso_productos.index' }"
+                            :to="{ name: 'salida_materials.index' }"
                             class="nav-link"
                         >
                             <i class="nav-icon fas fa-clipboard-check"></i>

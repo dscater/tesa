@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Productos</h1>
+                        <h1>Materiales</h1>
                     </div>
                 </div>
             </div>
@@ -20,13 +20,13 @@
                                         <button
                                             v-if="
                                                 permisos.includes(
-                                                    'productos.create'
+                                                    'materials.create'
                                                 )
                                             "
                                             class="btn btn-primary btn-flat btn-block"
                                             @click="
                                                 abreModal('nuevo');
-                                                limpiaProducto();
+                                                limpiaMaterial();
                                             "
                                         >
                                             <i class="fa fa-plus"></i>
@@ -50,7 +50,7 @@
                                                 <b-form-input
                                                     id="filter-input"
                                                     v-model="filter"
-                                                    @keyup="listaProductos"
+                                                    @keyup="listaMaterials"
                                                     type="search"
                                                     placeholder="Buscar"
                                                 ></b-form-input>
@@ -62,7 +62,7 @@
                                                         :disabled="!filter"
                                                         @click="
                                                             filter = '';
-                                                            listaProductos();
+                                                            listaMaterials();
                                                         "
                                                         >Borrar</b-button
                                                     >
@@ -135,7 +135,7 @@
                                                             class="btn-flat btn-block"
                                                             title="Eliminar registro"
                                                             @click="
-                                                                eliminaProducto(
+                                                                eliminaMaterial(
                                                                     row.item.id,
                                                                     row.item
                                                                         .nombre
@@ -189,9 +189,9 @@
         <Nuevo
             :muestra_modal="muestra_modal"
             :accion="modal_accion"
-            :producto="oProducto"
+            :material="oMaterial"
             @close="muestra_modal = false"
-            @envioModal="listaProductos"
+            @envioModal="listaMaterials"
         ></Nuevo>
     </div>
 </template>
@@ -210,19 +210,14 @@ export default {
             showOverlay: false,
             fields: [
                 {
-                    key: "codigo_almacen",
-                    label: "Código Almacén",
+                    key: "id",
+                    label: "Código",
                 },
-                {
-                    key: "codigo_producto",
-                    label: "Código de Producto",
-                },
-                { key: "nombre", label: "Nombre Producto" },
-                { key: "precio", label: "Precio de venta" },
-                { key: "stock_min", label: "Stock mínimo" },
-                { key: "stock_actual", label: "Stock actual" },
-                { key: "categoria.nombre", label: "Categoría" },
+                { key: "nombre", label: "Nombre Material" },
+                { key: "descripcion", label: "Descripción" },
+                { key: "stock", label: "Stock Actual" },
                 { key: "imagen", label: "Imagen referencial" },
+                { key: "fecha_registro", label: "Fecha de Registro" },
                 { key: "accion", label: "Acción" },
             ],
             isBusy: false,
@@ -233,16 +228,12 @@ export default {
             }),
             muestra_modal: false,
             modal_accion: "nuevo",
-            oProducto: {
+            oMaterial: {
                 id: 0,
-                codigo_almacen: "",
-                codigo_producto: "",
                 nombre: "",
                 descripcion: "",
-                precio: "",
-                stock_min: "",
-                imagen: null,
-                categoria_id: "",
+                stock: "",
+                imagen: "",
             },
             page: 1,
             currentPage: 1,
@@ -267,35 +258,23 @@ export default {
     watch: {},
     mounted() {
         this.loadingWindow.close();
-        this.listaProductos();
+        this.listaMaterials();
     },
     methods: {
         // Seleccionar Opciones de Tabla
         editarRegistro(item) {
-            this.oProducto.id = item.id;
-            this.oProducto.codigo_almacen = item.codigo_almacen
-                ? item.codigo_almacen
-                : "";
-            this.oProducto.codigo_producto = item.codigo_producto
-                ? item.codigo_producto
-                : "";
-            this.oProducto.nombre = item.nombre ? item.nombre : "";
-            this.oProducto.descripcion = item.descripcion
-                ? item.descripcion
-                : "";
-            this.oProducto.precio = item.precio ? item.precio : "";
-            this.oProducto.stock_min = item.stock_min ? item.stock_min : "";
-            this.oProducto.categoria_id = item.categoria_id
-                ? item.categoria_id
-                : "";
+            this.oMaterial.id = item.id;
+            this.oMaterial.nombre = item.nombre;
+            this.oMaterial.descripcion = item.descripcion;
+            this.oMaterial.stock = item.stock;
 
             this.modal_accion = "edit";
             this.muestra_modal = true;
         },
-        listaProductos() {
+        listaMaterials() {
             this.showOverlay = true;
             this.muestra_modal = false;
-            let url = "/admin/productos";
+            let url = "/admin/materials";
             if (this.pagina != 0) {
                 url += "?page=" + this.pagina;
             }
@@ -305,15 +284,15 @@ export default {
                 })
                 .then((res) => {
                     this.showOverlay = false;
-                    this.listRegistros = res.data.productos;
+                    this.listRegistros = res.data.materials;
                     this.totalRows = res.data.total;
                 });
         },
 
-        eliminaProducto(id, descripcion) {
+        eliminaMaterial(id, descripcion) {
             Swal.fire({
                 title: "¿Quierés eliminar este registro?",
-                html: `Esta acción eliminara también los registros de Kardex del almacén; siempre y cuando no se hallan realizado ventas<br><strong>${descripcion}</strong>`,
+                html: `<strong>${descripcion}</strong>`,
                 showCancelButton: true,
                 confirmButtonColor: "#149FDA",
                 confirmButtonText: "Si, eliminar",
@@ -323,11 +302,11 @@ export default {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     axios
-                        .post("/admin/productos/" + id, {
+                        .post("/admin/materials/" + id, {
                             _method: "DELETE",
                         })
                         .then((res) => {
-                            this.listaProductos();
+                            this.listaMaterials();
                             this.filter = "";
                             Swal.fire({
                                 icon: "success",
@@ -362,62 +341,21 @@ export default {
                 }
             });
         },
-        abreModal(tipo_accion = "nuevo", producto = null) {
+        abreModal(tipo_accion = "nuevo", material = null) {
             this.muestra_modal = true;
             this.modal_accion = tipo_accion;
-            if (producto) {
-                this.oProducto = producto;
+            if (material) {
+                this.oMaterial = material;
             }
         },
-        limpiaProducto() {
-            this.oProducto.codigo = "";
-            this.oProducto.nombre = "";
-            this.oProducto.medida = "";
-            this.oProducto.grupo_id = "";
-            this.oProducto.precio = "";
-            this.oProducto.precio_mayor = "";
-            this.oProducto.stock_min = "";
-            this.oProducto.categoria_id = "";
-            this.oProducto.descontar_stock = "SI";
+        limpiaMaterial() {
+            this.oMaterial.nombre = "";
+            this.oMaterial.descripcion = "";
+            this.oMaterial.stock = "";
+            this.oMaterial.imagen = "";
         },
         formatoFecha(date) {
             return this.$moment(String(date)).format("DD/MM/YYYY");
-        },
-        descargarExcel() {
-            this.descargando = true;
-            let config = {
-                responseType: "blob",
-            };
-            axios
-                .post(
-                    "/admin/productos/excel",
-                    {
-                        value: this.filter,
-                        sw_busqueda: this.sw_busqueda,
-                    },
-                    config
-                )
-                .then((response) => {
-                    var fileURL = window.URL.createObjectURL(
-                        new Blob([response.data])
-                    );
-                    var fileLink = document.createElement("a");
-                    fileLink.href = fileURL;
-                    fileLink.setAttribute("download", "productos.xlsx");
-                    document.body.appendChild(fileLink);
-
-                    fileLink.click();
-                    this.descargando = false;
-                })
-                .catch(async (error) => {
-                    console.log(error);
-                    let responseObj = await error.response.data.text();
-                    responseObj = JSON.parse(responseObj);
-                    this.enviando = false;
-                    if (error.response) {
-                    }
-                    this.descargando = false;
-                });
         },
     },
 };

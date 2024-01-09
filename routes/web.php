@@ -5,12 +5,15 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\HistorialAccionController;
+use App\Http\Controllers\IngresoMaterialController;
 use App\Http\Controllers\IngresoProductoController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\VentaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\SalidaMaterialController;
 use App\Http\Controllers\SalidaProductoController;
 use App\Http\Controllers\TipoIngresoController;
 use App\Http\Controllers\TipoSalidaController;
@@ -47,11 +50,7 @@ Route::middleware(['auth'])->group(function () {
 
         // Productos
         Route::post("productos/excel", [ProductoController::class, 'excel']);
-        Route::get("productos/paginado", [ProductoController::class, 'paginado']);
-        Route::get("productos/verifica_ventas", [ProductoController::class, 'verifica_ventas']);
         Route::get("productos/valida_stock", [ProductoController::class, 'valida_stock']);
-        Route::get("productos/productos_sucursal", [ProductoController::class, 'productos_sucursal']);
-        Route::get("productos/getStock", [ProductoController::class, 'getStock']);
         Route::get("productos/buscar_producto", [ProductoController::class, 'buscar_producto']);
         Route::resource('productos', ProductoController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
@@ -100,22 +99,39 @@ Route::middleware(['auth'])->group(function () {
             'index', 'show'
         ]);
 
+        // materials
+        Route::get("materials/valida_stock", [MaterialController::class, 'valida_stock']);
+        Route::get("materials/buscar_material", [MaterialController::class, 'buscar_material']);
+        Route::resource('materials', MaterialController::class)->only([
+            'index', 'store', 'update', 'destroy', 'show'
+        ]);
+
+        // ingreso_materials
+        Route::resource('ingreso_materials', IngresoMaterialController::class)->only([
+            'index', 'store', 'update', 'destroy', 'show'
+        ]);
+
+        // salida_materials
+        Route::resource('salida_materials', SalidaMaterialController::class)->only([
+            'index', 'store', 'update', 'destroy', 'show'
+        ]);
+
         // Analisis BI
         Route::get("analisis_bi/stock_productos1", [AnalisisBiController::class, 'stock_productos1']);
         Route::get("analisis_bi/stock_productos2", [AnalisisBiController::class, 'stock_productos2']);
         Route::get("analisis_bi/stock_productos3", [AnalisisBiController::class, 'stock_productos3']);
-        
+
         Route::get("analisis_bi/proveedors1", [AnalisisBiController::class, 'proveedors1']);
         Route::get("analisis_bi/proveedors2", [AnalisisBiController::class, 'proveedors2']);
         Route::get("analisis_bi/proveedors3", [AnalisisBiController::class, 'proveedors3']);
-        
+
         Route::get("analisis_bi/ventas1", [AnalisisBiController::class, 'ventas1']);
         Route::get("analisis_bi/ventas2", [AnalisisBiController::class, 'ventas2']);
         Route::get("analisis_bi/ventas3", [AnalisisBiController::class, 'ventas3']);
         Route::get("analisis_bi/ventas4", [AnalisisBiController::class, 'ventas4']);
         Route::get("analisis_bi/ventas5", [AnalisisBiController::class, 'ventas5']);
         Route::get("analisis_bi/ventas6", [AnalisisBiController::class, 'ventas6']);
-        
+
         Route::get("analisis_bi/clientes1", [AnalisisBiController::class, 'clientes1']);
         Route::get("analisis_bi/clientes2", [AnalisisBiController::class, 'clientes2']);
         Route::get("analisis_bi/clientes3", [AnalisisBiController::class, 'clientes3']);

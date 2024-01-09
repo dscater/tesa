@@ -151,7 +151,7 @@
                                                                         ' | ' +
                                                                         row.item
                                                                             .proveedor
-                                                                            .nombre
+                                                                            .razon_social
                                                                 )
                                                             "
                                                         >

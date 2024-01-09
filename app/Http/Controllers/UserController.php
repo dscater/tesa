@@ -98,6 +98,16 @@ class UserController extends Controller
             'salida_productos.create',
             'salida_productos.edit',
             'salida_productos.destroy',
+            
+            'ingreso_materials.index',
+            'ingreso_materials.create',
+            'ingreso_materials.edit',
+            'ingreso_materials.destroy',
+            
+            'salida_materials.index',
+            'salida_materials.create',
+            'salida_materials.edit',
+            'salida_materials.destroy',
 
             'clientes.index',
             'clientes.create',
