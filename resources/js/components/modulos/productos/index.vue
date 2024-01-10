@@ -171,7 +171,7 @@
                                                 v-if="perPage"
                                             >
                                                 <b-pagination
-                                                    v-model="page"
+                                                    v-model="currentPage"
                                                     :total-rows="totalRows"
                                                     :per-page="perPage"
                                                     align="left"
@@ -219,6 +219,8 @@ export default {
                 },
                 { key: "nombre", label: "Nombre Producto" },
                 { key: "precio", label: "Precio de venta" },
+                { key: "color", label: "Color" },
+                { key: "unidad_medida", label: "Unidad de medida" },
                 { key: "stock_min", label: "Stock mínimo" },
                 { key: "stock_actual", label: "Stock actual" },
                 { key: "categoria.nombre", label: "Categoría" },
@@ -239,6 +241,8 @@ export default {
                 codigo_producto: "",
                 nombre: "",
                 descripcion: "",
+                color: "",
+                unidad_medida: "",
                 precio: "",
                 stock_min: "",
                 imagen: null,
@@ -282,6 +286,12 @@ export default {
             this.oProducto.nombre = item.nombre ? item.nombre : "";
             this.oProducto.descripcion = item.descripcion
                 ? item.descripcion
+                : "";
+            this.oProducto.color = item.color
+                ? item.color
+                : "";
+            this.oProducto.unidad_medida = item.unidad_medida
+                ? item.unidad_medida
                 : "";
             this.oProducto.precio = item.precio ? item.precio : "";
             this.oProducto.stock_min = item.stock_min ? item.stock_min : "";
@@ -375,6 +385,8 @@ export default {
             this.oProducto.medida = "";
             this.oProducto.grupo_id = "";
             this.oProducto.precio = "";
+            this.oProducto.color = "";
+            this.oProducto.unidad_medida = "";
             this.oProducto.precio_mayor = "";
             this.oProducto.stock_min = "";
             this.oProducto.categoria_id = "";

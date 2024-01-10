@@ -205,12 +205,15 @@ export default {
             showOverlay: false,
             fields: [
                 { key: "material.nombre", label: "Material", sortable: true },
+                { key: "material.color", label: "Color", sortable: true },
                 {
                     key: "proveedor.razon_social",
                     label: "Proveedor",
                     sortable: true,
                 },
                 { key: "cantidad", label: "Cantidad", sortable: true },
+                { key: "peso", label: "Peso (kg)", sortable: true },
+                { key: "precio", label: "Precio", sortable: true },
                 {
                     key: "tipo_ingreso.nombre",
                     label: "Tipo de Ingreso",
@@ -242,6 +245,8 @@ export default {
                 proveedor_id: "",
                 descripcion: "",
                 cantidad: "",
+                peso: "",
+                precio: "",
                 tipo_ingreso_id: "",
                 fecha_ingreso: "",
             },
@@ -277,6 +282,8 @@ export default {
                 ? item.descripcion
                 : "";
             this.oIngresoMaterial.cantidad = item.cantidad ? item.cantidad : "";
+            this.oIngresoMaterial.peso = item.peso ? item.peso : "";
+            this.oIngresoMaterial.precio = item.precio ? item.precio : "";
             this.oIngresoMaterial.tipo_ingreso_id = item.tipo_ingreso_id
                 ? item.tipo_ingreso_id
                 : "";
@@ -378,6 +385,8 @@ export default {
             this.oIngresoMaterial.proveedor_id = "";
             this.oIngresoMaterial.descripcion = "";
             this.oIngresoMaterial.cantidad = "";
+            this.oIngresoMaterial.peso = "";
+            this.oIngresoMaterial.precio = "";
             this.oIngresoMaterial.tipo_ingreso_id = "";
             this.oIngresoMaterial.fecha_ingreso = "";
         },

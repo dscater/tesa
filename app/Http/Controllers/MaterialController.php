@@ -15,11 +15,14 @@ class MaterialController extends Controller
 {
     public $validacion = [
         'nombre' => 'required|min:1',
+        'color' => 'required|min:1',
     ];
 
     public $mensajes = [
-        "nombre.required"=>"Debes ingresar un nombre",
-        "nombre.min"=>"El nombre debe tener al menos :min caracter",
+        "nombre.required" => "Debes ingresar un nombre",
+        "nombre.min" => "El nombre debe tener al menos :min caracter",
+        "color.required" => "Debes ingresar un color",
+        "color.min" => "El color debe tener al menos :min caracter",
     ];
 
     public function index(Request $request)

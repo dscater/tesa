@@ -197,7 +197,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <h4>Predicción cantidades compradas por clientes</h4>
+                                <h4>Pronóstico cantidades compradas por clientes</h4>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row">
@@ -279,7 +279,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <h4>Predicción monto por clientes</h4>
+                                <h4>Pronóstico monto por clientes</h4>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row">

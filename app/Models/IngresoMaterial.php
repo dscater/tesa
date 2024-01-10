@@ -14,6 +14,8 @@ class IngresoMaterial extends Model
         "proveedor_id",
         "descripcion",
         "cantidad",
+        "peso",
+        "precio",
         "tipo_ingreso_id",
         "fecha_ingreso",
         "fecha_registro",

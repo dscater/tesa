@@ -17,11 +17,17 @@ class IngresoMaterialController extends Controller
         'proveedor_id' => 'required',
         'fecha_ingreso' => 'required',
         'cantidad' => 'required|numeric',
+        'peso' => 'required|numeric',
+        'precio' => 'required|numeric',
         'tipo_ingreso_id' => 'required',
     ];
 
     public $mensajes = [
-        "fecha_ingreso.required" => "Debes ingresar una fecha"
+        "fecha_ingreso.required" => "Debes ingresar una fecha",
+        "peso.required" => "Debes completar este campo",
+        "peso.numeric" => "Debes ingresar un valor númerico",
+        "precio.required" => "Debes completar este campo",
+        "precio.numeric" => "Debes ingresar un valor númerico",
     ];
 
     public function index(Request $request)

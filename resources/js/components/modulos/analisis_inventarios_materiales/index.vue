@@ -108,7 +108,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4>Predicción de stock</h4>
+                                <h4>Pronóstico de stock</h4>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row">
@@ -475,7 +475,7 @@ export default {
                         },
                         title: {
                             text:
-                                "PREDICCIÓN DE STOCK PRODUCTOS PARA " +
+                                "PRONÓSTICO DE STOCK PRODUCTOS PARA " +
                                 response.data.mes_anio,
                         },
                         subtitle: {

@@ -46,23 +46,23 @@
                             <div class="form-group col-md-6">
                                 <label
                                     :class="{
-                                        'text-danger': errors.descripcion,
+                                        'text-danger': errors.color,
                                     }"
-                                    >Descripción</label
+                                    >Color*</label
                                 >
                                 <el-input
-                                    placeholder="Nombre"
+                                    placeholder="Color"
                                     :class="{
-                                        'is-invalid': errors.descripcion,
+                                        'is-invalid': errors.color,
                                     }"
-                                    v-model="material.descripcion"
+                                    v-model="material.color"
                                     clearable
                                 >
                                 </el-input>
                                 <span
                                     class="error invalid-feedback"
-                                    v-if="errors.descripcion"
-                                    v-text="errors.descripcion[0]"
+                                    v-if="errors.color"
+                                    v-text="errors.color[0]"
                                 ></span>
                             </div>
                             <div class="form-group col-md-6">
@@ -129,7 +129,7 @@ export default {
             default: {
                 id: 0,
                 nombre: "",
-                descripcion: "",
+                color: "",
                 imagen: null,
             },
         },
@@ -195,8 +195,8 @@ export default {
                     this.material.nombre ? this.material.nombre : ""
                 );
                 formdata.append(
-                    "descripcion",
-                    this.material.descripcion ? this.material.descripcion : ""
+                    "color",
+                    this.material.color ? this.material.color : ""
                 );
                 formdata.append(
                     "imagen",
@@ -281,7 +281,7 @@ export default {
         limpiaMaterial() {
             this.errors = [];
             this.material.nombre = "";
-            this.material.descripcion = "";
+            this.material.color = "";
             this.material.stock = "";
             this.material.imagen = "";
             this.$refs.input_file.value = null;

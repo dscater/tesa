@@ -25,10 +25,19 @@ class ProductoController extends Controller
         'codigo_producto' => 'required|min:1',
         'nombre' => 'required|min:1',
         'precio' => 'required|numeric',
+        "color" => "required|min:1",
+        "unidad_medida" => "required|min:1",
         'stock_min' => 'required|numeric',
+        "categoria_id" => "required"
     ];
 
-    public $mensajes = [];
+    public $mensajes = [
+        "color.required" => "Debes ingresar un color",
+        "color.min" => "El color debe tener al menos :min caracter",
+        "unidad_medida.required" => "Debes ingresar una unidad de medida",
+        "unidad_medida.min" => "La unidad de medida debe tener al menos :min caracter",
+        "categoria_id.required" => "Debes seleccionar una categoría",
+    ];
 
     public function index(Request $request)
     {

@@ -95,7 +95,7 @@
                                     >Descripción</label
                                 >
                                 <el-input
-                                    placeholder="Nombre"
+                                    placeholder="Descripción"
                                     :class="{
                                         'is-invalid': errors.descripcion,
                                     }"
@@ -107,6 +107,50 @@
                                     class="error invalid-feedback"
                                     v-if="errors.descripcion"
                                     v-text="errors.descripcion[0]"
+                                ></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.color,
+                                    }"
+                                    >Color*</label
+                                >
+                                <el-input
+                                    placeholder="Color"
+                                    :class="{
+                                        'is-invalid': errors.color,
+                                    }"
+                                    v-model="producto.color"
+                                    clearable
+                                >
+                                </el-input>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.color"
+                                    v-text="errors.color[0]"
+                                ></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.unidad_medida,
+                                    }"
+                                    >Unidad de medida*</label
+                                >
+                                <el-input
+                                    placeholder="Unidad de medida"
+                                    :class="{
+                                        'is-invalid': errors.unidad_medida,
+                                    }"
+                                    v-model="producto.unidad_medida"
+                                    clearable
+                                >
+                                </el-input>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.unidad_medida"
+                                    v-text="errors.unidad_medida[0]"
                                 ></span>
                             </div>
                             <div class="form-group col-md-6">
@@ -252,6 +296,8 @@ export default {
                 codigo_producto: "",
                 nombre: "",
                 descripcion: "",
+                color: "",
+                unidad_medida: "",
                 precio: "",
                 stock_min: "",
                 stock_actual: "",
@@ -335,6 +381,16 @@ export default {
                 formdata.append(
                     "descripcion",
                     this.producto.descripcion ? this.producto.descripcion : ""
+                );
+                formdata.append(
+                    "color",
+                    this.producto.color ? this.producto.color : ""
+                );
+                formdata.append(
+                    "unidad_medida",
+                    this.producto.unidad_medida
+                        ? this.producto.unidad_medida
+                        : ""
                 );
                 formdata.append(
                     "precio",
@@ -434,6 +490,8 @@ export default {
             this.producto.codigo_producto = "";
             this.producto.nombre = "";
             this.producto.descripcion = "";
+            this.producto.color = "";
+            this.producto.unidad_medida = "";
             this.producto.precio = "";
             this.producto.stock_min = "";
             this.producto.categoria_id = "";

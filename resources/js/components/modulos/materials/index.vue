@@ -171,7 +171,7 @@
                                                 v-if="perPage"
                                             >
                                                 <b-pagination
-                                                    v-model="page"
+                                                    v-model="currentPage"
                                                     :total-rows="totalRows"
                                                     :per-page="perPage"
                                                     align="left"
@@ -214,7 +214,7 @@ export default {
                     label: "Código",
                 },
                 { key: "nombre", label: "Nombre Material" },
-                { key: "descripcion", label: "Descripción" },
+                { key: "color", label: "Color" },
                 { key: "stock", label: "Stock Actual" },
                 { key: "imagen", label: "Imagen referencial" },
                 { key: "fecha_registro", label: "Fecha de Registro" },
@@ -231,7 +231,7 @@ export default {
             oMaterial: {
                 id: 0,
                 nombre: "",
-                descripcion: "",
+                color: "",
                 stock: "",
                 imagen: "",
             },
@@ -265,7 +265,7 @@ export default {
         editarRegistro(item) {
             this.oMaterial.id = item.id;
             this.oMaterial.nombre = item.nombre;
-            this.oMaterial.descripcion = item.descripcion;
+            this.oMaterial.color = item.color;
             this.oMaterial.stock = item.stock;
 
             this.modal_accion = "edit";
@@ -289,10 +289,10 @@ export default {
                 });
         },
 
-        eliminaMaterial(id, descripcion) {
+        eliminaMaterial(id, color) {
             Swal.fire({
                 title: "¿Quierés eliminar este registro?",
-                html: `<strong>${descripcion}</strong>`,
+                html: `<strong>${color}</strong>`,
                 showCancelButton: true,
                 confirmButtonColor: "#149FDA",
                 confirmButtonText: "Si, eliminar",
@@ -350,7 +350,7 @@ export default {
         },
         limpiaMaterial() {
             this.oMaterial.nombre = "";
-            this.oMaterial.descripcion = "";
+            this.oMaterial.color = "";
             this.oMaterial.stock = "";
             this.oMaterial.imagen = "";
         },

@@ -19,6 +19,8 @@ class CreateIngresoMaterialsTable extends Migration
             $table->unsignedBigInteger("proveedor_id")->unsigned();
             $table->string("descripcion", 800);
             $table->double("cantidad", 8, 2);
+            $table->double("peso", 8, 2);
+            $table->decimal("precio", 24, 2);
             $table->unsignedBigInteger("tipo_ingreso_id");
             $table->date("fecha_ingreso");
             $table->date("fecha_registro")->nullable();

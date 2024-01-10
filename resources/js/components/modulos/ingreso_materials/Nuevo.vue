@@ -131,6 +131,50 @@
                             <div class="form-group col-md-6">
                                 <label
                                     :class="{
+                                        'text-danger': errors.peso,
+                                    }"
+                                    >Peso (kg)*</label
+                                >
+                                <el-input
+                                    type="number"
+                                    min="0.01"
+                                    placeholder="Peso (kg)"
+                                    :class="{ 'is-invalid': errors.peso }"
+                                    v-model="ingreso_material.peso"
+                                    clearable
+                                >
+                                </el-input>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.peso"
+                                    v-text="errors.peso[0]"
+                                ></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.precio,
+                                    }"
+                                    >Precio*</label
+                                >
+                                <el-input
+                                    type="number"
+                                    min="0.01"
+                                    placeholder="Precio"
+                                    :class="{ 'is-invalid': errors.precio }"
+                                    v-model="ingreso_material.precio"
+                                    clearable
+                                >
+                                </el-input>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.precio"
+                                    v-text="errors.precio[0]"
+                                ></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
                                         'text-danger': errors.fecha_ingreso,
                                     }"
                                     >Fecha de ingreso*</label
@@ -249,6 +293,8 @@ export default {
                 proveedor_id: "",
                 descripcion: "",
                 cantidad: "",
+                peso: "",
+                precio: "",
                 tipo_ingreso_id: "",
                 fecha_ingreso: "",
             },
@@ -351,6 +397,16 @@ export default {
                     "cantidad",
                     this.ingreso_material.cantidad
                         ? this.ingreso_material.cantidad
+                        : ""
+                );
+                formdata.append(
+                    "peso",
+                    this.ingreso_material.peso ? this.ingreso_material.peso : ""
+                );
+                formdata.append(
+                    "precio",
+                    this.ingreso_material.precio
+                        ? this.ingreso_material.precio
                         : ""
                 );
                 formdata.append(

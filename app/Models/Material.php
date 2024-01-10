@@ -11,7 +11,7 @@ class Material extends Model
 
     protected $fillable = [
         "nombre",
-        "descripcion",
+        "color",
         "stock",
         "imagen",
         "fecha_registro",
