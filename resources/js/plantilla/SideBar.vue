@@ -84,7 +84,13 @@
                         v-if="
                             permisos.includes('ventas.index') ||
                             permisos.includes('ingreso_productos.index') ||
-                            permisos.includes('salida_productos.index')
+                            permisos.includes('salida_productos.index') ||
+                            permisos.includes('fabricacion.index') ||
+                            permisos.includes('ingreso_materials.index') ||
+                            permisos.includes('salida_materials.index') ||
+                            permisos.includes(
+                                'cuantificador_produccions.create'
+                            )
                         "
                     >
                         OPERACIONES
@@ -110,7 +116,23 @@
                             class="nav-link"
                         >
                             <i class="nav-icon fas fa-tags"></i>
-                            <p>Fabricación</p>
+                            <p>Proceso de producción</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
+                        v-if="
+                            permisos.includes(
+                                'cuantificador_produccions.create'
+                            )
+                        "
+                    >
+                        <router-link
+                            :to="{ name: 'cuantificador_produccions.create' }"
+                            class="nav-link"
+                        >
+                            <i class="nav-icon fas fa-calculator"></i>
+                            <p>Cuantificador de producción</p>
                         </router-link>
                     </li>
                     <li
@@ -122,7 +144,7 @@
                             class="nav-link"
                         >
                             <i class="nav-icon fas fa-sign-in-alt"></i>
-                            <p>Ingreso de Materiales</p>
+                            <p>Entrada de Materiales</p>
                         </router-link>
                     </li>
                     <li
@@ -342,9 +364,7 @@
                     </li>
                     <li
                         class="nav-item"
-                        v-if="
-                            permisos.includes('analisis_fabricacion')
-                        "
+                        v-if="permisos.includes('analisis_fabricacion')"
                     >
                         <router-link
                             :to="{

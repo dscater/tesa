@@ -404,7 +404,13 @@ export default {
                 { value: "PD", label: "Pando" },
                 { value: "BN", label: "Beni" },
             ],
-            listTipos: ["ADMINISTRADOR", "GERENCIA", "SUPERVISOR", "VENDEDOR"],
+            listTipos: [
+                "ADMINISTRADOR",
+                "GERENTE",
+                "ENCARGADO DE LOGÍSTICA Y ALMACÉN",
+                "ENCARGADO DE PRODUCCIÓN",
+                "VENDEDOR",
+            ],
             listCajas: [],
             errors: [],
         };

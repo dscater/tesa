@@ -58,6 +58,14 @@ export default new Router({
                 .default,
         },
 
+        // cuantificador_produccions
+        {
+            path: "/cuantificador_produccions",
+            name: "cuantificador_produccions.create",
+            component: require("./components/modulos/cuantificador_produccions/create.vue")
+                .default,
+        },
+
         // ingreso_materials
         {
             path: "/ingreso_materials",

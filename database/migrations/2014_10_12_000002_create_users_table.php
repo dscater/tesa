@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string("dir", 255);
             $table->string('correo')->nullable();
             $table->string("fono", 255);
-            $table->enum("tipo", ["ADMINISTRADOR", "GERENCIA", "SUPERVISOR", "VENDEDOR"]);
+            $table->enum("tipo", ["ADMINISTRADOR", "GERENTE", "ENCARGADO DE LOGÍSTICA Y ALMACÉN", "ENCARGADO DE PRODUCCIÓN", "VENDEDOR"]);
             $table->string("foto", 255)->nullable();
             $table->string('password');
             $table->integer('acceso');

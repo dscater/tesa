@@ -111,6 +111,8 @@ class UserController extends Controller
 
             'fabricacion.index',
             'fabricacion.terminado',
+            
+            'cuantificador_produccions.create',
 
             'clientes.index',
             'clientes.create',
@@ -140,18 +142,7 @@ class UserController extends Controller
             'reportes.stock_materials',
             'reportes.historial_acciones',
         ],
-        'GERENCIA' => [
-            "analisis_inventarios",
-            "analisis_proveedores",
-            "analisis_ventas",
-            "analisis_clientes",
-
-            'reportes.kardex',
-            'reportes.ventas',
-            'reportes.stock_productos',
-            'reportes.historial_acciones',
-        ],
-        'SUPERVISOR' => [
+        'GERENTE' => [
             'proveedors.index',
             'proveedors.create',
             'proveedors.edit',
@@ -166,26 +157,6 @@ class UserController extends Controller
             'materials.create',
             'materials.edit',
             'materials.destroy',
-
-            'categorias.index',
-            'categorias.create',
-            'categorias.edit',
-            'categorias.destroy',
-
-            'tipo_ingresos.index',
-            'tipo_ingresos.create',
-            'tipo_ingresos.edit',
-            'tipo_ingresos.destroy',
-
-            'ingreso_productos.index',
-            'ingreso_productos.create',
-            'ingreso_productos.edit',
-            'ingreso_productos.destroy',
-
-            'tipo_salidas.index',
-            'tipo_salidas.create',
-            'tipo_salidas.edit',
-            'tipo_salidas.destroy',
 
             'salida_productos.index',
             'salida_productos.create',
@@ -205,15 +176,15 @@ class UserController extends Controller
             'fabricacion.index',
             'fabricacion.terminado',
 
-            'clientes.index',
-            'clientes.create',
-            'clientes.edit',
-            'clientes.destroy',
-
             'ventas.index',
             'ventas.create',
             'ventas.edit',
             'ventas.destroy',
+
+            'clientes.index',
+            'clientes.create',
+            'clientes.edit',
+            'clientes.destroy',
 
             "analisis_inventarios",
             "analisis_fabricacion",
@@ -228,6 +199,63 @@ class UserController extends Controller
             'reportes.stock_productos',
             'reportes.stock_materials',
             'reportes.historial_acciones',
+        ],
+        'ENCARGADO DE LOGÍSTICA Y ALMACÉN' => [
+            'proveedors.index',
+            'proveedors.create',
+            'proveedors.edit',
+            'proveedors.destroy',
+
+            'productos.index',
+            'productos.create',
+            'productos.edit',
+            'productos.destroy',
+
+            'materials.index',
+            'materials.create',
+            'materials.edit',
+            'materials.destroy',
+
+            'salida_productos.index',
+            'salida_productos.create',
+            'salida_productos.edit',
+            'salida_productos.destroy',
+
+            'ingreso_materials.index',
+            'ingreso_materials.create',
+            'ingreso_materials.edit',
+            'ingreso_materials.destroy',
+
+            'salida_materials.index',
+            'salida_materials.create',
+            'salida_materials.edit',
+            'salida_materials.destroy',
+
+            'reportes.kardex',
+            'reportes.kardex_materials',
+            'reportes.stock_productos',
+            'reportes.stock_materials',
+        ],
+        'ENCARGADO DE PRODUCCIÓN' => [
+            'productos.index',
+            'productos.create',
+            'productos.edit',
+            'productos.destroy',
+
+            'salida_materials.index',
+            'salida_materials.create',
+            'salida_materials.edit',
+            'salida_materials.destroy',
+
+            'fabricacion.index',
+            'fabricacion.terminado',
+
+            'cuantificador_produccions.create',
+
+            'reportes.kardex',
+            'reportes.kardex_materials',
+            'reportes.stock_productos',
+            'reportes.stock_materials',
         ],
         'VENDEDOR' => [
             'clientes.index',
